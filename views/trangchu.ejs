@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Title Page</title>
+
+        <!-- Bootstrap CSS -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.3/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <style>
+            body{
+                width: 1200px;
+                margin:0 auto;
+            }
+        </style>
+    </head>
+    <body>
+        <h1 class="text-center">Hello World</h1>
+
+        
+        <form action="/add" method="POST" role="form">
+            <legend>Form title</legend>
+        
+            <div class="form-group">
+                <label for="">Ma sinh vien</label>
+                <input type="text" class="form-control" name="masinhvien" id="" placeholder="Input field">
+            </div>
+            
+            <div class="form-group">
+                <label for="">Ten sinh vien</label>
+                <input type="text" class="form-control" name="tensinhvien" id="" placeholder="Input field">
+            </div>
+            <div class="form-group">
+                <label for="">Ngay sinh</label>
+                <input type="date" class="form-control" name="ngaysinh" id="" placeholder="Input field">
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Ma sinh vien</th>
+                    <th>Ten sinh vien</th>
+                    <th>Ngay sinh</th>
+                    <th>Action</th>
+                    <th>Update</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <% list.forEach(function(current,index){ %>
+                    <tr>
+                        <td><%= current.id%></td>
+                        <td><%= current.tensinhvien%></td>
+                        <td><%= current.ngaysinh%></td>
+                        <td><a href="/delete/<%=current.id%>">Remove</a></td>
+                        <td><a href="/update/<%=current.id%>">Update</a></td>
+                    </tr>
+               <% })%>
+                
+            </tbody>
+        </table>
+        <!-- jQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <!-- Bootstrap JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </body>
+</html>

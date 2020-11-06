@@ -3,8 +3,9 @@ const app = express();
 const AWS = require('aws-sdk')
 const bodyParser = require('body-parser')
 
-app.use(express.json());
+
 app.use(bodyParser.urlencoded({extended:true}));
+app.use(express.json({extended:false}));
 app.set("view engine", "ejs");
 app.set("views","./views");
 
@@ -45,6 +46,7 @@ app.post('/add',(req,res)=>{
         "ngaysinh":ngaysinh,  
        }
     }
+    console.log(req);
     docClient.put(params_add,(err,data) =>{
         if(err){
             console.log("Loi khong the them  ",JSON.stringify(err,null,2))
@@ -127,4 +129,46 @@ app.post('/update',(req,res)=>{
         }
     })
 })
+
+app.get("/timKiem",(req,res)=>{
+    const tensinhvien = req.body.tensinhvien;
+    const params = {
+        TableName : "StudentBai1",
+        FilterExpression: "contains(tensinhvien, :tensinhvien)",
+        ExpressionAttributeValues:{
+            ":tensinhvien" : tensinhvien
+        },
+    };
+    docClient.scan(params,(error,data)=>{
+        if(error)
+            console.log(error);
+        else 
+             console.log(data);
+            res.render("trangchu",{
+                list: data.Items
+                
+            });
+    });
+});
+
+app.post("/timKiem2",(req,res)=>{
+    const tensinhvien = req.body.tensinhvien;
+    const params = {
+        TableName : "StudentBai1",
+        FilterExpression: "tensinhvien = :tensinhvien",
+        ExpressionAttributeValues:{
+            ":tensinhvien":tensinhvien
+        },
+    };
+    docClient.scan(params,(error,data)=>{
+        if(error)
+            console.log(error);
+        else 
+            console.log(data)
+            res.render("trangchu",{
+                list : data.Items
+            });
+    });
+})
+
 app.listen(3000, () => console.log(`Server connected port 3000`))

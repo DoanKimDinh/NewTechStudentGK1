@@ -143,7 +143,6 @@ app.get("/timKiem",(req,res)=>{
         if(error)
             console.log(error);
         else 
-             console.log(data);
             res.render("trangchu",{
                 list: data.Items
                 
@@ -164,7 +163,6 @@ app.post("/timKiem2",(req,res)=>{
         if(error)
             console.log(error);
         else 
-            console.log(data)
             res.render("trangchu",{
                 list : data.Items
             });
